@@ -1,0 +1,6 @@
+{
+  "name": "KruSmart - កម្រងកិច្ចតែងការបង្រៀន និងផ្ទៀងផ្ទាត់",
+  "description": "ប្រព័ន្ធគ្រប់គ្រងកិច្ចតែងការបង្រៀន តាមដាននាទី ផ្ទៀងផ្ទាត់គរុកោសល្យ បោះពុម្ព និងទាញយកជា HTML និង XLSX",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

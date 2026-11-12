@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "TeacherProfile": {
+      "title": "TeacherProfile",
+      "description": "Teacher profile authenticated via Gmail and registered with official phone number",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Auth UID of teacher" },
+        "email": { "type": "string", "description": "Official Gmail of teacher" },
+        "phoneNumber": { "type": "string", "description": "Official phone number of teacher" },
+        "displayName": { "type": "string", "description": "Teacher full name in Khmer or English" },
+        "schoolName": { "type": "string", "description": "Primary school name" },
+        "gradesTeaching": { "type": "string", "description": "Grades taught e.g. Grade 1 to 6" },
+        "createdAt": { "type": "string", "description": "Timestamp created" },
+        "updatedAt": { "type": "string", "description": "Timestamp updated" }
+      },
+      "required": ["uid", "email", "phoneNumber"]
+    },
+    "CloudLessonPlan": {
+      "title": "CloudLessonPlan",
+      "description": "Lesson plans saved to Firestore by authenticated teachers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Lesson Plan ID" },
+        "teacherUid": { "type": "string", "description": "Teacher UID" },
+        "teacherEmail": { "type": "string", "description": "Teacher Gmail" },
+        "title": { "type": "string", "description": "Lesson title" },
+        "subject": { "type": "string", "description": "Subject name" },
+        "grade": { "type": "string", "description": "Grade 1 to 6" },
+        "unit": { "type": "string", "description": "Unit or chapter" },
+        "durationMinutes": { "type": "string", "description": "Duration in minutes" },
+        "date": { "type": "string", "description": "Lesson date" },
+        "objectives": { "type": "string", "description": "Serialized objectives" },
+        "teachingAids": { "type": "string", "description": "Teaching aids JSON string" },
+        "steps": { "type": "string", "description": "Serialized 5-step delivery data" },
+        "verification": { "type": "string", "description": "Serialized verification status and audit notes" },
+        "updatedAt": { "type": "string", "description": "Last updated timestamp" }
+      },
+      "required": ["id", "teacherUid", "title", "subject", "grade"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "Historical audit log of teacher actions (create, edit, print, export, verify)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Log entry ID" },
+        "teacherUid": { "type": "string", "description": "Teacher UID" },
+        "teacherEmail": { "type": "string", "description": "Teacher Gmail" },
+        "action": { "type": "string", "description": "Action type" },
+        "lessonId": { "type": "string", "description": "Related lesson plan ID" },
+        "lessonTitle": { "type": "string", "description": "Related lesson title" },
+        "details": { "type": "string", "description": "Description of activity" },
+        "timestamp": { "type": "string", "description": "Timestamp of action" }
+      },
+      "required": ["id", "teacherUid", "action", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/teachers/{teacherUid}": {
+      "schema": { "$ref": "#/entities/TeacherProfile" },
+      "description": "Teacher profile documents"
+    },
+    "/lesson_plans/{lessonId}": {
+      "schema": { "$ref": "#/entities/CloudLessonPlan" },
+      "description": "Lesson plan documents"
+    },
+    "/activity_logs/{logId}": {
+      "schema": { "$ref": "#/entities/ActivityLog" },
+      "description": "Teacher history and activity log documents"
+    }
+  }
+}
